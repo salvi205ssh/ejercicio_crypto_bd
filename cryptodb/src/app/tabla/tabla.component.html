@@ -1,0 +1,89 @@
+<nav>
+  <div>
+    <P>MY CRYPTOBRO METAVERSE</P>
+    <P>(LETS GO NFC TEAM)</P>
+  </div>
+  <div>
+    <P>{{ nombreUserLog }}</P>
+    <P>DEPOSIT:{{ cryptosUser.data[0]?.deposit }}</P>
+    <p>
+      <button mat-button color="accent" (click)="cerrarSesion()">
+        Log Out
+      </button>
+    </p>
+  </div>
+</nav>
+
+<table class="lista_cryptos">
+  <tr>
+    <th>Nombre</th>
+    <th>Valor</th>
+    <th>Valor</th>
+    <th></th>
+  </tr>
+  <tr *ngFor="let coin of coins; let i = index">
+    <td>{{ coin.crypto_name }}</td>
+    <td>{{ coin.value }}</td>
+    <td>{{ coin.stock }}</td>
+
+    <td *ngIf="checkName(coin.crypto_id)">
+      <button disabled>Comprar</button>
+    </td>
+    <td *ngIf="!checkName(coin.crypto_id)">
+      <button class="boton-{{ i }}" (click)="buyCoin(coin.crypto_id)">
+        Comprar
+      </button>
+    </td>
+  </tr>
+</table>
+
+<div class="container">
+  <mat-form-field appearance="standard"
+    ><mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" />
+  </mat-form-field>
+
+  <table mat-table [dataSource]="cryptosUser">
+    <ng-container matColumnDef="user_id">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let crypto">{{ crypto.user_id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="asset">
+      <th mat-header-cell *matHeaderCellDef>Asset</th>
+      <td mat-cell *matCellDef="let crypto">{{ crypto.asset }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="icon">
+      <th mat-header-cell *matHeaderCellDef>Icon</th>
+      <td mat-cell *matCellDef="let crypto">
+        <img src="{{ crypto.icon }}" alt="imgIcon" class="imgIcon" />
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="crypto_name">
+      <th mat-header-cell *matHeaderCellDef>Crypto name</th>
+      <td mat-cell *matCellDef="let crypto">{{ crypto.crypto_name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="value">
+      <th mat-header-cell *matHeaderCellDef>Value</th>
+      <td mat-cell *matCellDef="let crypto">{{ crypto.value }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="stock">
+      <th mat-header-cell *matHeaderCellDef>Stock</th>
+      <td mat-cell *matCellDef="let crypto">{{ crypto.stock }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef>Amount</th>
+      <td mat-cell *matCellDef="let crypto">{{ crypto.amount }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 100]"></mat-paginator>
+</div>
