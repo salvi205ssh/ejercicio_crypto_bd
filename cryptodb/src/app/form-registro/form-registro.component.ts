@@ -57,7 +57,7 @@ export class FormRegistroComponent implements OnInit {
 
         localStorage.setItem('nombre', response.username);
         localStorage.setItem('user_id', response.user_id);
-        this.router.navigate(['tabla']);
+        this.router.navigate(['login']);
 
         //this.loginUser(response.username, response.password);
       },
